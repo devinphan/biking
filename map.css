@@ -1,0 +1,129 @@
+/* map.css - Map styling */
+
+html,
+body {
+  margin: 0;
+  padding: 5px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#map {
+  width: 100%;
+  height: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 1rem;
+  position: relative;
+}
+
+/* SVG overlay on top of map */
+#map svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Allows clicking through to the map */
+}
+
+/* Override pointer-events for circles so tooltips work */
+#map svg circle {
+  pointer-events: auto;
+}
+
+body {
+  max-width: 1200px;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Step 6.1: Traffic flow color variables */
+:root {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+}
+
+/* Step 6.1: Circle fill color based on departure ratio */
+#map svg circle {
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+  fill: var(--color);
+}
+
+/* Step 6.2: Legend styling - Design 2 (Swatches with labels) */
+.legend {
+  display: flex;
+  gap: 2rem;
+  margin-block: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Legend swatch using pseudo-element */
+.legend > div::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color);
+  outline: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Swatch colors for each legend item */
+.legend > div:nth-child(1)::before {
+  --departure-ratio: 1;
+  --color: color-mix(in oklch, var(--color-departures) 100%, var(--color-arrivals));
+}
+
+.legend > div:nth-child(2)::before {
+  --departure-ratio: 0.5;
+  --color: color-mix(in oklch, var(--color-departures) 50%, var(--color-arrivals));
+}
+
+.legend > div:nth-child(3)::before {
+  --departure-ratio: 0;
+  --color: color-mix(in oklch, var(--color-departures) 0%, var(--color-arrivals));
+}
+
+/* Optional: Legend title */
+.legend::before {
+  content: "Traffic Flow:";
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+/* Responsive legend */
+@media (max-width: 600px) {
+  .legend {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  
+  .legend::before {
+    margin-bottom: 0.25rem;
+  }
+}

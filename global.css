@@ -1,0 +1,59 @@
+/* global.css - Base styles */
+
+body {
+    font: 100%/1.5 system-ui, sans-serif;
+    display: flex;
+    flex-flow: column;
+    max-width: 1200px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* Header with time filter */
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-bottom: 0.5rem;
+  }
+  
+  h1 {
+    margin: 0;
+  }
+  
+  .time-filter-label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    margin-left: auto;
+    font-size: 0.9rem;
+  }
+  
+  .time-display {
+    display: block;
+    min-width: 100px;
+    font-family: monospace;
+  }
+  
+  #any-time {
+    font-style: italic;
+    color: #666;
+  }
+  
+  #selected-time {
+    font-weight: bold;
+  }
+  
+  em {
+    font-style: italic;
+    color: #888;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+  }
